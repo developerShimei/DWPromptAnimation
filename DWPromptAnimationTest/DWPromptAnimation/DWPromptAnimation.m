@@ -46,9 +46,9 @@ UIView *animationPicturesView;
     
     for (int i = 0; i < imageCount; i++) {
         
-        NSString *imageName = [NSString stringWithFormat:@"%@%02d",imageNames,i];
+        NSString *imageName = [NSString stringWithFormat:@"%@%02d.%@",imageNames,i,imageType];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:imageType];
+        NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:nil];
         
         UIImage *image = [UIImage imageWithContentsOfFile:path];
         
@@ -239,11 +239,11 @@ UIView *animationPicturesView;
     
     for (int i = 0; i < imageCount; i++) {
         
-        NSString *imageName = [NSString stringWithFormat:@"%@_%02d",imageNames,i];
+        NSString *imageName = [NSString stringWithFormat:@"%@_%02d.png",imageNames,i];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:@"png"];
+        NSString *urlPath=[[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:[NSString stringWithFormat:@"Resources_Sources.bundle/%@",imageName]];
         
-        UIImage *image = [UIImage imageWithContentsOfFile:path];
+        UIImage *image = [UIImage imageWithContentsOfFile:urlPath];
         
         [muArray addObject:image];
     }
@@ -375,9 +375,9 @@ UIView *animationPicturesView;
     
     for (int i = 0; i < imageCount; i++) {
         
-        NSString *imageName = [NSString stringWithFormat:@"%@%02d",imageNames,i];
+        NSString *imageName = [NSString stringWithFormat:@"%@%02d.%@",imageNames,i,imageType];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:imageType];
+        NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:nil];
         
         UIImage *image = [UIImage imageWithContentsOfFile:path];
         
@@ -524,7 +524,7 @@ UIView *animationPicturesView;
             break;
     }
     
-    NSURL *imageURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:sourceString ofType:nil]];
+    NSURL *imageURL = [NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:[NSString stringWithFormat:@"Resources_CustomSources_Gif.bundle/%@",sourceString]]];
     
     [animationPictures dw_SetImage:imageURL];
     
@@ -633,8 +633,17 @@ UIView *animationPicturesView;
 
     }
     
-    NSURL *imageURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:gifName ofType:nil]];
+    NSURL *imageURL;
     
+    if ([gifName hasPrefix:@"CustomSources"]) {
+        
+        imageURL = [NSURL fileURLWithPath: [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:[NSString stringWithFormat:@"Resources_CustomSourcesGif.bundle/%@",gifName]]];
+        
+    }else {
+    
+        imageURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:gifName ofType:nil]];
+    
+    }
     [animationPictures dw_SetImage:imageURL];
     
     [animationPicturesView addSubview:animationPictures];

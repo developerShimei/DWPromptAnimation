@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/dwanghello/DWPromptAnimation.git", :tag => s.version.to_s }
   s.source_files = "DWPromptAnimation", "DWPromptAnimationTest/DWPromptAnimation/**/*.{h,m}"
   s.frameworks   = "UIKit", "Foundation","ImageIO"
-  s.resources    = "DWPromptAnimationTest/DWPromptAnimation/**/*.{gif,png}"
+  s.resources    = "DWPromptAnimationTest/DWPromptAnimation/Resources_CustomSources_Gif.bundle", "DWPromptAnimationTest/DWPromptAnimation/Resources_CustomSourcesGif.bundle",
+  "DWPromptAnimationTest/DWPromptAnimation/Resources_Sources.bundle"
 end
